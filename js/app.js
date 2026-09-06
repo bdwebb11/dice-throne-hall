@@ -1,4 +1,11 @@
 const LOW_SAMPLE = 20;
+const LEDGER_PARTS = [
+  "./data/part-0.json",
+  "./data/part-1.json",
+  "./data/part-2.json",
+  "./data/part-3.json",
+  "./data/part-4.json",
+];
 const SET_CLASS = {
   "Season One": "set-season-one",
   "Season Two": "set-season-two",
@@ -136,13 +143,25 @@ function maybeShowInstallHint() {
   const ios = /iPad|iPhone|iPod/.test(navigator.userAgent);
   if (!standalone && ios) hint.hidden = false;
 }
+async function loadLedger() {
+  const books = await Promise.all(LEDGER_PARTS.map((path) => fetch(path, { cache: "no-store" }).then((r) => {
+    if (!r.ok) throw new Error(path);
+    return r.json();
+  })));
+  const first = books[0];
+  return {
+    source: first.source,
+    fetchedAt: first.fetchedAt,
+    context: first.context,
+    fallback: first.fallback,
+    heroes: books.flatMap((b) => b.heroes || []),
+  };
+}
 async function boot() {
   registerAppShell();
   maybeShowInstallHint();
   try {
-    const res = await fetch("./data/heroes.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("missing ledger");
-    state.data = await res.json();
+    state.data = await loadLedger();
   } catch (err) {
     $("#load-error").hidden = false;
     $("#load-error").textContent = "The hall could not open the ledger book.";
