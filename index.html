@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#120c08" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DT Hall" />
+    <meta name="description" content="Dice Throne tournament hall. Hall of Heroes and Hero Ledger with Karnyx 1v1 matchups." />
+    <title>Hall of Heroes — Dice Throne</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/hall.css" />
+  </head>
+  <body>
+    <div class="hall-frame">
+      <header class="banner">
+        <div class="brand">
+          <div class="crest" aria-hidden="true">DT</div>
+          <div>
+            <h1>Hall of Heroes</h1>
+            <p class="sub">Tournament floor · Dice Throne 1v1</p>
+          </div>
+        </div>
+        <div class="banner-meta">
+          <div id="updated-stamp">Last updated —</div>
+          <div class="stamp" id="source-stamp">Ledger</div>
+        </div>
+      </header>
+      <p id="install-hint" class="install-hint" hidden>
+        Add to Home Screen from the share sheet to keep this hall on your phone.
+      </p>
+      <p id="load-error" class="empty" hidden></p>
+      <section id="hall-screen" class="screen active">
+        <div class="toolbar">
+          <input id="search" class="search" type="search" placeholder="Search the hall by hero or set" autocomplete="off" />
+          <select id="set-filter" class="filter" aria-label="Filter by set"></select>
+        </div>
+        <p class="shift-note" id="roster-count">Calling the champions…</p>
+        <div id="roster" class="roster"></div>
+      </section>
+      <section id="ledger-screen" class="screen">
+        <div class="ledger-top">
+          <button id="back-btn" class="back" type="button">← Back to the hall</button>
+        </div>
+        <p id="ledger-missing" class="empty" hidden>That champion is not in this ledger.</p>
+        <div id="ledger-body">
+          <div class="ledger-head">
+            <div id="ledger-avatar" class="avatar">—</div>
+            <div>
+              <p class="ledger-kicker" id="ledger-kicker">Hero Ledger</p>
+              <h2 id="ledger-name">Hero</h2>
+            </div>
+          </div>
+          <div class="meter-grid">
+            <div class="meter"><div class="label">Win rate</div><div class="value" id="stat-wr">—</div></div>
+            <div class="meter"><div class="label">Pick rate</div><div class="value" id="stat-pick">—</div></div>
+            <div class="meter"><div class="label">Ban rate</div><div class="value" id="stat-ban">—</div></div>
+            <div class="meter"><div class="label">Matches</div><div class="value" id="stat-games">—</div></div>
+          </div>
+          <p class="shift-note">Data may shift as matches are logged.</p>
+          <div class="columns">
+            <div class="ledger-col good">
+              <h3>Best picks vs this hero</h3>
+              <div id="best-list"></div>
+            </div>
+            <div class="ledger-col bad">
+              <h3>Worst picks vs this hero</h3>
+              <div id="worst-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="hall-footer">
+        Live matchup rates from Karnyx 1v1. Last updated <span id="footer-updated">—</span>.
+        Not official Roxley balance.
+      </footer>
+    </div>
+    <script src="./js/app.js" type="module"></script>
+  </body>
+</html>
